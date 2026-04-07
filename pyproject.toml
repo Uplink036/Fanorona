@@ -1,0 +1,42 @@
+[project]
+name = "fanorona"
+version = "0.1.0"
+authors = [{name="Uplink036"}]
+description = "A library to handle fanorana related stuff"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy"
+]
+license-files = ["LICEN[CS]E*"]
+
+[project.optional-dependencies]
+lint = [
+    "black",
+    "isort",
+    "mypy",
+]
+all = ["fanorona[lint]"]
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+sources = ["source"]
+
+[tool.isort]
+atomic = true
+profile = "black"
+line_length = 88
+skip_gitignore = true
+
+[tool.mypy]
+python_version = "3.14"
+mypy_path = "source"
+strict = true
+strict_bytes = true
+local_partial_types = true
+
+[tool.black]
+line-length = 88
