@@ -1,4 +1,12 @@
+from dataclasses import dataclass
+
 from .piece import Piece, Player
+
+@dataclass
+class Move:
+    piece: Piece
+    new_x: int
+    new_y: int
 
 class Board():
     def __init__(self, rows=5, cols=9, grid=None):
@@ -52,3 +60,57 @@ class Board():
                 if cell is not None:
                     pieces.append(cell)
         return pieces
+    
+    def get_all_pieces_by_player(self, player: Player) -> list[Piece]:
+        return [piece for piece in self.get_all_pieces() if piece.player == player]
+    
+    def _piece_has_empty_neighbor(self, piece: Piece) -> bool:
+        for dx in [-1, 0, 1]:
+            for dy in [-1, 0, 1]:
+                if dx == 0 and dy == 0:
+                    continue
+                neighbor_x = piece.x + dx
+                neighbor_y = piece.y + dy
+                if 0 <= neighbor_y < self.rows and 0 <= neighbor_x < self.cols:
+                    if self.grid[neighbor_y][neighbor_x] is None:
+                        return True
+        return False
+    
+    def _get_all_pieces_with_atleast_one_empty_neighbor(self, player: Player) -> list[Piece]:
+        pieces = []
+        for piece in self.get_all_pieces_by_player(player):
+            if self._piece_has_empty_neighbor(piece):
+                pieces.append(piece)
+        return pieces
+    
+    def get_possible_moves(self, player: Player) -> list[Move]:
+        moves = []
+        for piece in self._get_all_pieces_with_atleast_one_empty_neighbor(player):
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0:
+                        continue
+                    new_x = piece.x + dx
+                    new_y = piece.y + dy
+                    if 0 <= new_y < self.rows and 0 <= new_x < self.cols:
+                        if self.grid[new_y][new_x] is None:
+                            moves.append(Move(piece, new_x, new_y))
+        return moves
+    
+    def make_move(self, move: Move) -> None:
+        if self.grid[move.new_y][move.new_x] is not None:
+            raise ValueError("Target cell is not empty")
+        if self.grid[move.piece.y][move.piece.x] != move.piece:
+            raise ValueError("Piece is not at its current location")
+        if abs(move.new_x - move.piece.x) > 1 or abs(move.new_y - move.piece.y) > 1:
+            raise ValueError("Move must be to an adjacent cell")
+        if (move.new_x == move.piece.x and move.new_y == move.piece.y):
+            raise ValueError("Move must change the piece's position")
+        
+        self.grid[move.piece.y][move.piece.x] = None
+        move.piece.x = move.new_x
+        move.piece.y = move.new_y
+        self.grid[move.new_y][move.new_x] = move.piece
+
+    def __str__(self) -> str:
+        return f"Board(rows={self.rows}, cols={self.cols}, grid=...)"

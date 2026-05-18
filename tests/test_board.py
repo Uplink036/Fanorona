@@ -61,3 +61,11 @@ def test_create_board_with_wrong_dimensions():
         assert False, "Expected ValueError for grid with wrong number of columns in a row"
     except ValueError:
         pass
+
+def test_get_all_pieces_with_empty_neighbors():
+    board = Board(rows=3, cols=3, grid=[[None, Player.WHITE, None], 
+                                              [None, None, None], 
+                                              [None, None, None]])
+    pieces = board.get_all_pieces()
+    assert len(pieces) == 1, "Expected get_all_pieces to return a list with one piece"
+    assert pieces[0].player == Player.WHITE, "Expected the piece to be white"

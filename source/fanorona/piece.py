@@ -19,4 +19,8 @@ class Piece:
             raise ValueError("player must be an instance of the Player enum")
         self.player = player
 
+    def __str__(self):
+        return f"Piece(player={self.player}, x={self.x}, y={self.y})"
     
+    def __repr__(self):
+        return self.__str__()
