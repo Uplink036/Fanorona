@@ -1,4 +1,1 @@
-from .main import hello
-
-__all__ = ["hello"]
-
+__all__ = []
