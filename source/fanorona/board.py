@@ -24,6 +24,7 @@ class Board():
         self._place_pieces(self.grid)
 
     def initiliaze_fanorona(self):
+        assert self.rows == 5 and self.cols == 9, "Fanorona board must be 5 rows and 9 columns"
         grid = [[Player.WHITE]*self.cols, 
             [Player.WHITE]*self.cols, 
             [Player.WHITE, Player.BLACK, Player.WHITE, Player.BLACK, None, Player.BLACK, Player.WHITE, Player.BLACK, Player.WHITE],
