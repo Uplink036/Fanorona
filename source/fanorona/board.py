@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .piece import Piece, Player
+from fanorona.piece import Piece, Player
 
 @dataclass
 class Move:

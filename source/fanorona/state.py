@@ -1,5 +1,5 @@
-from .board import Board, Move
-from .piece import Player
+from fanorona.board import Board, Move
+from fanorona.piece import Player
 
 class State:
     """Represents the current state of a Fanorona game, including the board and player turn."""
