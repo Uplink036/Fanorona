@@ -115,7 +115,11 @@ class Board():
 
 
     def copy(self) -> 'Board':
-        new_grid = deepcopy(self.grid)  # Assuming we have imported deepcopy from copy
+        new_grid = [[None for _ in range(self.cols)] for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if self.grid[i][j] is not None:
+                    new_grid[i][j] = self.grid[i][j].player
         return Board(rows=self.rows, cols=self.cols, grid=new_grid)
 
     def __str__(self) -> str:

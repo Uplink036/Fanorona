@@ -69,3 +69,19 @@ def test_get_all_pieces_with_empty_neighbors():
     pieces = board.get_all_pieces()
     assert len(pieces) == 1, "Expected get_all_pieces to return a list with one piece"
     assert pieces[0].player == Player.WHITE, "Expected the piece to be white"
+
+def test_copy_board():
+    board = Board(rows=3, cols=3, grid=[[None, Player.WHITE, None], 
+                                              [None, None, None], 
+                                              [None, None, None]])
+    board_copy = board.copy()
+    assert board_copy is not board, "Expected copy to return a different Board instance"
+    assert board_copy.grid == board.grid, "Expected the grid of the copy to be the same as the original"
+
+def test_copy_board_independence():
+    board = Board(rows=3, cols=3, grid=[[None, Player.WHITE, None], 
+                                              [None, None, None], 
+                                              [None, None, None]])
+    board_copy = board.copy()
+    board_copy.grid[0][1] = None  # Modify the copy
+    assert board.grid[0][1] is not None, "Expected modifying the copy to not affect the original board"
