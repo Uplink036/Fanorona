@@ -1,3 +1,4 @@
+from copy import deepcopy
 from dataclasses import dataclass
 
 from fanorona.piece import Piece, Player
@@ -111,6 +112,11 @@ class Board():
         move.piece.x = move.new_x
         move.piece.y = move.new_y
         self.grid[move.new_y][move.new_x] = move.piece
+
+
+    def copy(self) -> 'Board':
+        new_grid = deepcopy(self.grid)  # Assuming we have imported deepcopy from copy
+        return Board(rows=self.rows, cols=self.cols, grid=new_grid)
 
     def __str__(self) -> str:
         return f"Board(rows={self.rows}, cols={self.cols}, grid=...)"
