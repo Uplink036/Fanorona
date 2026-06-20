@@ -32,7 +32,7 @@ class Board():
             [Player.BLACK]*self.cols]
         self.initiliaze(grid)
 
-    def _validate_grid(self, grid: list[list[Piece | None]]) -> None:
+    def _validate_grid(self, grid: list[list[Player | None]]) -> None:
         if len(grid) != self.rows:
             raise ValueError(f"grid must have {self.rows} rows")
         for row in grid:
