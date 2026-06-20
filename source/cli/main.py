@@ -1,6 +1,7 @@
-"""Module entrypoint for `python -m cli.fanorona`.
+"""
+Module entrypoint for `python -m cli.fanorona`.
 
-Runs the minimal terminal play loop using `terminal.simple_play_loop()`.
+Runs the minimal terminal play loop using `terminal.play_loop()`.
 """
 import argparse
 from cli.terminal import play_loop
