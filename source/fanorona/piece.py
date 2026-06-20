@@ -24,3 +24,11 @@ class Piece:
     
     def __repr__(self):
         return self.__str__()
+    
+    def __eq__(self, other):
+        if isinstance(other, Piece):
+            same_x = self.x == other.x
+            same_y = self.y == other.y
+            same_player = self.player == other.player
+            return same_x and same_y and same_player
+        return False
