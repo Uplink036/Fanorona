@@ -10,7 +10,7 @@ class Move:
     new_y: int
 
 class Board():
-    def __init__(self, rows=5, cols=9, grid=None):
+    def __init__(self, rows=5, cols=9, grid=None) -> None:
         self.rows = rows
         self.cols = cols
         if grid is not None:
@@ -18,12 +18,12 @@ class Board():
         else:
             self.grid = [[None for _ in range(cols)] for _ in range(rows)]
 
-    def initiliaze(self, grid: list[list[Piece | None]]):
+    def initiliaze(self, grid: list[list[Piece | None]]) -> None:
         self.grid = grid
         self._validate_grid(self.grid)
         self._place_pieces(self.grid)
 
-    def initiliaze_fanorona(self):
+    def initiliaze_fanorona(self) -> None:
         assert self.rows == 5 and self.cols == 9, "Fanorona board must be 5 rows and 9 columns"
         grid = [[Player.WHITE]*self.cols, 
             [Player.WHITE]*self.cols, 
@@ -32,7 +32,7 @@ class Board():
             [Player.BLACK]*self.cols]
         self.initiliaze(grid)
 
-    def _validate_grid(self, grid: list[list[Piece | None]]):
+    def _validate_grid(self, grid: list[list[Piece | None]]) -> None:
         if len(grid) != self.rows:
             raise ValueError(f"grid must have {self.rows} rows")
         for row in grid:
@@ -42,7 +42,7 @@ class Board():
                 if cell is not None and not isinstance(cell, (Player, Piece)):
                     raise ValueError("grid cells must be instances of Player or Piece or None")
                 
-    def _place_pieces(self, grid: list[list[Piece | None]]):
+    def _place_pieces(self, grid: list[list[Piece | None]]) -> None:
         for i in range(self.rows):
             for j in range(self.cols):
                 if grid[i][j] is not None:
