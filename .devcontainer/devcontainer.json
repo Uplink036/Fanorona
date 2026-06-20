@@ -8,7 +8,7 @@
 		"ghcr.io/devcontainers-extra/features/black:2": {},
 		"ghcr.io/devcontainers-extra/features/isort:2": {},
 		"ghcr.io/devcontainers-extra/features/mypy:2": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -17,7 +17,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	"postCreateCommand": "make init",
 
 	// Configure tool-specific properties.
 	// "customizations": {},

@@ -1,0 +1,34 @@
+
+# Create an enum that is black or white
+from enum import Enum
+
+class Player(Enum):
+    WHITE = "white"
+    BLACK = "black"
+
+class Piece:
+    def __init__(self, x: int, y: int, player: Player | str):
+        self.x = x
+        self.y = y
+        if isinstance(player, str):
+            try:
+                player = Player(player)
+            except ValueError:
+                raise ValueError("player must be 'white' or 'black'")
+        elif not isinstance(player, Player):
+            raise ValueError("player must be an instance of the Player enum")
+        self.player = player
+
+    def __str__(self):
+        return f"Piece(player={self.player}, x={self.x}, y={self.y})"
+    
+    def __repr__(self):
+        return self.__str__()
+    
+    def __eq__(self, other):
+        if isinstance(other, Piece):
+            same_x = self.x == other.x
+            same_y = self.y == other.y
+            same_player = self.player == other.player
+            return same_x and same_y and same_player
+        return False
